@@ -13,11 +13,11 @@ I am going to start from ground zero and build up with some examples in python a
 
 ## The Base - What do we use Logistic Regression for?
 
-$$ e^{i\theta}=\cos(\theta)+i\sin(\theta) $$
-
 If you are first understanding logistic regression, you have to know one thing. You have to predict one of two classes, like cats vs dogs, fire vs. ice, etc. In data science, we typically give what we are trying to predict a name. We will call them labels, or Y. We have to codify the labels to be some number. Again, we typically give our Y the values 1 or 0, 1 corresponding to one label, and 0 for the other label.
 
-$$Y = \left\{\begin{array}\\1 \\0\end{array}\right.$$
+$$ Y = 1 $$
+
+$$ Y = \left\{\begin{array}\\1 \\0\end{array}\right $$
 
 So we have a bunch of labels (Y). How do we predict one of those classes? Well, you gotta have some data that represents each class. We typically call these features, or X.
 
@@ -35,11 +35,11 @@ So you're probably wondering how do we get from a set of features, X, to a set o
 
 We need to define some notation first. Let's define the probability that a given set of features is 1.
 
-$$P[Y=1] = p$$
+$$ P[Y=1] = p $$
 
 Now let's define the probability that a given set of features is 0.
 
-$$P[Y=0] = 1 - p$$
+$$ P[Y=0] = 1 - p $$
 
 When we are doing logistic regression, we are predicting a probability, between 1 and 0. We will be using p for when the predicted class is 1, and 1 - p when the predicted class is 0.
 
