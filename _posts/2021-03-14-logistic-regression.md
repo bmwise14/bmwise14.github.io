@@ -15,14 +15,14 @@ I am going to start from ground zero and build up with some examples in python a
 
 If you are first understanding logistic regression, you have to know one thing. You have to predict one of two classes, like cats vs dogs, fire vs. ice, etc. In data science, we typically give what we are trying to predict a name. We will call them labels, or Y. We have to codify the labels to be some number. Again, we typically give our Y the values 1 or 0, 1 corresponding to one label, and 0 for the other label.
 
-\begin{equation*}
+$$\begin{equation*}
 Y = \left\{
     \begin{array}\\
         1 \\
         0
     \end{array}
 \right.   
-\end{equation*}
+\end{equation*}$$
 
 So we have a bunch of labels (Y). How do we predict one of those classes? Well, you gotta have some data that represents each class. We typically call these features, or X.
 
@@ -72,9 +72,9 @@ $\beta_{1}$ to $\beta_{p-1}$ are the weights/coefficients mapped to your feature
 x_{1} to x_{p-1} are each individual feature vector (vector (many values) for adiposity, etc.)
 $\beta_{0}$ is an intercept.
 
-\begin{equation*}
+$$\begin{equation*}
 \beta^TX
-\end{equation*}
+\end{equation*}$$
 are the weights and the features condensed into matrix form. You can do some cool stuff with this property. I will show that later in later equations.
 
 So maybe you are starting to understand how we map outputs to features. It's all in the Betas! Those are the weights or coefficients "attached" to your numerical features. The logistic equation is trying to adjust those weights in the best possible based on all the data for a particular feature to give the best output for Y.
@@ -82,14 +82,14 @@ So maybe you are starting to understand how we map outputs to features. It's all
 Now that we know this relationship between the features and the probabilities, how do we actually get the probability that y=1? We have to take that logit equation and exponentiate it. This will give us everything we need to make a prediction!
 
 Step 1: Exponentiate the log odds to get the odds, but now we have the features exponentiated as well.
-\begin{equation*}
+$$\begin{equation*}
 \frac{p} {1-p} = e^{ \beta_{0} + \beta_{1}x_{1} + \dots + \beta_{p-1}x_{p-1} }
-\end{equation*}
+\end{equation*}$$
 
 Step 2: Solve for p
-\begin{equation*}
+$$\begin{equation*}
 p = \frac{ e^{ \beta_{0} + \beta_{1}x_{1} + \dots + \beta_{p-1}x_{p-1}  } } {1 + e^{ \beta_{0} + \beta_{1}x_{1} + \dots + \beta_{p-1}x_{p-1}  }} = \frac{ e^{\beta^TX} } {1 + e^{\beta^TX}}
-\end{equation*}
+\end{equation*}$$
 
 Step 3: Simplify
 \begin{equation*}
