@@ -13,6 +13,8 @@ I am going to start from ground zero and build up with some examples in python a
 
 ## The Base - What do we use Logistic Regression for?
 
+$$ e^{i\theta}=\cos(\theta)+i\sin(\theta) $$
+
 If you are first understanding logistic regression, you have to know one thing. You have to predict one of two classes, like cats vs dogs, fire vs. ice, etc. In data science, we typically give what we are trying to predict a name. We will call them labels, or Y. We have to codify the labels to be some number. Again, we typically give our Y the values 1 or 0, 1 corresponding to one label, and 0 for the other label.
 
 $$Y = \left\{\begin{array}\\1 \\0\end{array}\right.$$
