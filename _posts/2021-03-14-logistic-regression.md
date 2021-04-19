@@ -3,7 +3,6 @@ title:  "Logistic Regression (with Math) for Dummies"
 mathjax: true
 layout: post
 categories: media
-use_math: true
 ---
 
 So, let's talk about Logistic Regression. It is arguably the most common technique in machine learning for predicting two classes, and on the surface, it is relatively easy to understand and evaluate.
