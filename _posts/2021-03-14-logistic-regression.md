@@ -86,5 +86,29 @@ Step 3: Simplify
 $$p = \frac{ 1 } {1 + e^{-\beta_{0} + \beta_{1}x_{1} + \dots + \beta_{p-1}x_{p-1}  }} = \frac{ 1 } {1 + e^{-\beta^TX }}$$
 
 
+This is it! If you know the Betas and you have your feature values, all you have to do is plug and chug to get a prediction for the probability that y=1 (p). 
+Let's see what this looks like in python code. This final equation is called the sigmoid function, where the matrix multiplication of your Betas and your features X is typically "z" in a lot of things you will read online.
+
+{% highlight python %}
+def logistic_regression_predict(W, X):
+    '''
+    Definition:
+        return a matrix of probabilities from sigmoid function
+    Inputs:
+        W (numpy array): your weights array - shape (10,) - 10 features
+        X (numpy array): your feature values matrix - shape (N, 10) - 10 features, N data
+    Returns:
+        probabilities (numpy array): probability matrix representing the probability a data point will be in class 1
+    '''
+    probabilities = np.array(1.0 / (1.0 + np.exp(np.dot(X,-W))))
+    return probabilities
+{% endhighlight %}
+
+Let's do an example with the AS dataset. I am going to just select some random weights. As you can see there is 1 weight/coefficient for each feature.
+
+{% highlight python %}
+weights = np.array([0.0003, 0.433, -0.00045]) # Initialized Weights
+features = np.array(X[['sbp', 'tobacco', 'ldl']])[:4] # Features
+{% endhighlight %}
 
 ## How do we get those coefficients to make an accurate prediction?
