@@ -18,18 +18,12 @@ In data science, we typically give what we are trying to predict a name. We will
 Again, we typically give our \(Y\) the values 1 or 0, 1 corresponding to one label, and 0 for the other label.
 
 <div style="text-align:center"><img src=
-"https://render.githubusercontent.com/render/math?math=%5Cdisplaystyle+Y+%3D%0A%5Cbegin%7Bcases%7D%0A1+%5C%5C%0A0%0A%5Cend%7Bcases%7D" 
+"https://render.githubusercontent.com/render/math?math=%5Clarge+%5Ctextstyle+Y+%3D%0A%5Cbegin%7Bcases%7D%0A1+%5C%5C%0A0%0A%5Cend%7Bcases%7D" 
 alt="Y =
 \begin{cases}
 1 \\
 0
 \end{cases}"></div>
-
-![Y =
-\begin{cases}
-1 \\
-0
-\end{cases}](https://render.githubusercontent.com/render/math?math=%5Cdisplaystyle+Y+%3D%0A%5Cbegin%7Bcases%7D%0A1+%5C%5C%0A0%0A%5Cend%7Bcases%7D)
 
 So we have a bunch of labels $Y$. How do we predict one of those classes? Well, you gotta have some data that represents each class. We typically call these features, or $X$.
 
@@ -74,7 +68,7 @@ $$logit(p) = \log{\left(\frac{p} {1-p}\right)} = log(p) - log(1-p) = -log\left(\
 $$-log\left(\frac{1} {p} - 1\right) = \beta_{0} + \beta_{1}x_{1} + \dots + \beta_{p-1}x_{p-1} = \beta^TX$$
 
 , where 
-- <div id="image" style="display:inline;"><img src="https://render.githubusercontent.com/render/math?math=%5Clarge+%5Ctextstyle+p" alt="p"></div> is the probability that ![y=1](https://render.githubusercontent.com/render/math?math=%5Ctextstyle+y%3D1),
+- <img src="https://render.githubusercontent.com/render/math?math=%5Clarge+%5Ctextstyle+p" alt="p"> is the probability that ![y=1](https://render.githubusercontent.com/render/math?math=%5Ctextstyle+y%3D1),
 - ![\beta_{1}](https://render.githubusercontent.com/render/math?math=%5Ctextstyle+%5Cbeta_%7B1%7D) to ![\beta_{p-1}](https://render.githubusercontent.com/render/math?math=%5Ctextstyle+%5Cbeta_%7Bp-1%7D) are the weights/coefficients mapped to your features (each beta is one value) 
 - \$x_{1}\$ to \$x_{p-1}\$ are each individual feature vector (vector (many values) for adiposity, etc.)
 - \$\beta_{0}\$ is an intercept.
