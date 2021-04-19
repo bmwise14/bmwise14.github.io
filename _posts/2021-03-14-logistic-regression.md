@@ -23,7 +23,7 @@ $$ Y = \left\{\begin{array}\\1 \\0\end{array}\right $$
 
 testing
 
-\\[ \frac{1}{n^{2}} \\]
+$$ \frac{1}{n^{2}} $$
 
 So we have a bunch of labels (Y). How do we predict one of those classes? Well, you gotta have some data that represents each class. We typically call these features, or X.
 
