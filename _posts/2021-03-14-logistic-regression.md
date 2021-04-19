@@ -69,6 +69,7 @@ $$-log\left(\frac{1} {p} - 1\right) = \beta_{0} + \beta_{1}x_{1} + \dots + \beta
 
 
 , where 
+- <!-- $p$ --> <img style="transform: translateY(0.1em); background: white;" src="../svg/VzTxEW3gst.svg"> is cool.
 - <!-- $p$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=p"> is the probability that <!-- $y=1$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=y%3D1">,
 - <!-- $\beta_{1}$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=%5Cbeta_%7B1%7D"> to <!-- $\beta_{p-1}$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=%5Cbeta_%7Bp-1%7D"> are the weights/coefficients mapped to your features (each beta is one value) 
 - <!-- $x_{1}$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=x_%7B1%7D"> to <!-- $x_{p-1}$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=x_%7Bp-1%7D"> are each individual feature vector (vector (many values) for adiposity, etc.)
