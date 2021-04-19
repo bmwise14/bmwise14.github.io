@@ -111,4 +111,14 @@ weights = np.array([0.0003, 0.433, -0.00045]) # Initialized Weights
 features = np.array(X[['sbp', 'tobacco', 'ldl']])[:4] # Features
 {% endhighlight %}
 
+That's awesome! We can use features and beta values to calculate the probability of a class. But how do we get the best weights that fit the data in the most accurate way?
+We will have to do some optimization.
+
 ## How do we get those coefficients to make an accurate prediction?
+
+How do we get the best weights that fit the data in the most accurate way? We have to do some optimization or maximum likelihood estimation!
+
+What the heck is that? In the most simple terms, you need to find the results on your data that best minimize the error in your predictions from the actual class.
+This must be done by just picking weights and seeing what happens. Then you update them and repeat. When you get the best weights you can, you stick with them. 
+This is what all the model training is. Let's get into it.
+
