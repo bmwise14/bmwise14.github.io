@@ -14,8 +14,8 @@ I am going to start from ground zero and build up with some examples in python a
 ## The Base - What do we use Logistic Regression for?
 
 If you are first understanding logistic regression, you have to know one thing. You have to predict one of two classes, like cats vs dogs, fire vs. ice, etc. 
-In data science, we typically give what we are trying to predict a name. We will call them labels, or \(Y\). We have to codify the labels to be some number. 
-Again, we typically give our \(Y\) the values 1 or 0, 1 corresponding to one label, and 0 for the other label.
+In data science, we typically give what we are trying to predict a name. We will call them labels, or <!-- $Y$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=Y">. We have to codify the labels to be some number. 
+Again, we typically give our <!-- $Y$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=Y"> the values 1 or 0, 1 corresponding to one label, and 0 for the other label.
 
 <div style="text-align:center"><img src=
 "https://render.githubusercontent.com/render/math?math=%5Clarge+%5Ctextstyle+Y+%3D%0A%5Cbegin%7Bcases%7D%0A1+%5C%5C%0A0%0A%5Cend%7Bcases%7D" 
@@ -25,7 +25,7 @@ alt="Y =
 0
 \end{cases}"></div>
 
-So we have a bunch of labels $Y$. How do we predict one of those classes? Well, you gotta have some data that represents each class. We typically call these features, or $X$.
+So we have a bunch of labels <!-- $Y$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=Y">. How do we predict one of those classes? Well, you gotta have some data that represents each class. We typically call these features, or <!-- $X$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=X">.
 
 Features represent the labels. For classifying cats and dogs, we may have one feature called color with many different color values (red, yellow, orange). 
 We might have another feature called length, with varying lengths of the animal (20 inches, 50 inches, etc.). 
@@ -34,13 +34,13 @@ As you gather more features describing cats and dogs, you are developing a matri
 Let's move to another more complicated example. I have a dataset downloaded from kaggle called the South Africa Coronary Heart Disease Dataset {https://www.kaggle.com/emilianito/saheart},or SAHeart. 
 We are going to be predicting whether or not a sample of males from South Africa have coronary heart disease based on a host of measured features, including systolic blood pressure, tobacco use, LDL cholesterol, adiposity, family history, type-A behavior, obesity, alcohol use, and age.
 
-Each individual feature can be denoted as $x_i$. For example, \(x_1\) represent the data in the "adiposity" feature in the SA Heart Dataset. 
+Each individual feature can be denoted as <!-- $x_i$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=x_i">. For example, <!-- $x_1$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=x_1"> represent the data in the "adiposity" feature in the SA Heart Dataset. 
 
 We have about 462 rows, which means we have measured 462 patients. With this data, you could "train" an algorithm to predict if the person has coronary heart disease, 1 for "yes they have it", and 0 for "no they do not have it."
 
 ## How do we predict a class?
 
-So you're probably wondering how do we get from a set of features, \(X\), to a set of predictions, \(Y\)? We have to do a little bit of math. We need some equation to be able to take the features \(X\) and get an output of 1 or 0. This equation will basically be "fitting" the numerical features to the numerical outcome (1 or 0). 
+So you're probably wondering how do we get from a set of features, <!-- $X$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=X">, to a set of predictions, <!-- $Y$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=Y">? We have to do a little bit of math. We need some equation to be able to take the features <!-- $X$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=X"> and get an output of 1 or 0. This equation will basically be "fitting" the numerical features to the numerical outcome (1 or 0). 
 That means when a new set of features comes around, we can just use the fit equation to predict 1 or 0. Let's take a look at how this all works.
 
 We need to define some notation first. Let's define the probability that a given set of features is 1.
@@ -67,15 +67,16 @@ $$logit(p) = \log{\left(\frac{p} {1-p}\right)} = log(p) - log(1-p) = -log\left(\
 
 $$-log\left(\frac{1} {p} - 1\right) = \beta_{0} + \beta_{1}x_{1} + \dots + \beta_{p-1}x_{p-1} = \beta^TX$$
 
+
 , where 
 - <!-- $p$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=p"> is the probability that <!-- $y=1$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=y%3D1">,
-- ![\beta_{1}](https://render.githubusercontent.com/render/math?math=%5Ctextstyle+%5Cbeta_%7B1%7D) to ![\beta_{p-1}](https://render.githubusercontent.com/render/math?math=%5Ctextstyle+%5Cbeta_%7Bp-1%7D) are the weights/coefficients mapped to your features (each beta is one value) 
-- <!-- $x_{1}$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=x_%7B1%7D"> to $x_{p-1}$ are each individual feature vector (vector (many values) for adiposity, etc.)
-- \$\beta_{0}\$ is an intercept.
+- <!-- $\beta_{1}$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=%5Cbeta_%7B1%7D"> to <!-- $\beta_{p-1}$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=%5Cbeta_%7Bp-1%7D"> are the weights/coefficients mapped to your features (each beta is one value) 
+- <!-- $x_{1}$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=x_%7B1%7D"> to <!-- $x_{p-1}$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=x_%7Bp-1%7D"> are each individual feature vector (vector (many values) for adiposity, etc.)
+- <!-- $\beta_{0}$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=%5Cbeta_%7B0%7D"> is an intercept.
 
-\$\beta^TX\$ are the weights and the features condensed into matrix form. You can do some cool stuff with this property. I will show that later in later equations.
+<!-- $\beta^TX$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=%5Cbeta%5ETX"> are the weights and the features condensed into matrix form. You can do some cool stuff with this property. I will show that later in later equations.
 
-So maybe you are starting to understand how we map outputs to features. It's all in the Betas! Those are the weights or coefficients "attached" to your numerical features. The logistic equation is trying to adjust those weights in the best possible based on all the data for a particular feature to give the best output for Y.
+So maybe you are starting to understand how we map outputs to features. It's all in the Betas! Those are the weights or coefficients "attached" to your numerical features. The logistic equation is trying to adjust those weights in the best possible based on all the data for a particular feature to give the best output for <!-- $Y$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=Y">.
 
 Now that we know this relationship between the features and the probabilities, how do we actually get the probability that y=1? We have to take that logit equation and exponentiate it. This will give us everything we need to make a prediction!
 
