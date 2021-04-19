@@ -28,7 +28,7 @@ As you gather more features describing cats and dogs, you are developing a matri
 Let's move to another more complicated example. I have a dataset downloaded from kaggle called the South Africa Coronary Heart Disease Dataset {https://www.kaggle.com/emilianito/saheart},or SAHeart. 
 We are going to be predicting whether or not a sample of males from South Africa have coronary heart disease based on a host of measured features, including systolic blood pressure, tobacco use, LDL cholesterol, adiposity, family history, type-A behavior, obesity, alcohol use, and age.
 
-Each individual feature can be denoted as \(x_i\). For example, \(x_1\) represent the data in the "adiposity" feature in the SA Heart Dataset. 
+Each individual feature can be denoted as \$x_i\$. For example, \(x_1\) represent the data in the "adiposity" feature in the SA Heart Dataset. 
 
 We have about 462 rows, which means we have measured 462 patients. With this data, you could "train" an algorithm to predict if the person has coronary heart disease, 1 for "yes they have it", and 0 for "no they do not have it."
 
@@ -57,18 +57,17 @@ Here comes the binary [logit function](https://en.wikipedia.org/wiki/Logit). Thi
 
 You can map the total relationship between the log odds and your features below.
 
-
-$$logit(p) = \log{\left(\frac{p} {1-p}\right)} = log(p) - log(1-p) = -log\left(\frac{1} {p} - 1\right) = \beta_{0} + \beta_{1}x_{1} + \dots + \beta_{p-1}x_{p-1} = \beta^TX$$
+$$logit(p) = \log{\left(\frac{p} {1-p}\right)} = log(p) - log(1-p) = -log\left(\frac{1} {p} - 1\right)$$
 
 $$-log\left(\frac{1} {p} - 1\right) = \beta_{0} + \beta_{1}x_{1} + \dots + \beta_{p-1}x_{p-1} = \beta^TX$$
 
 , where 
-- \(p\) is the probability that \(y=1\),
-- \(\beta_{1}\) to \(\beta_{p-1}\) are the weights/coefficients mapped to your features (each beta is one value) 
-- \(x_{1}\) to \(x_{p-1}\) are each individual feature vector (vector (many values) for adiposity, etc.)
-- \(\beta_{0}\) is an intercept.
+- \$p\$ is the probability that \$y=1\$,
+- \$\beta_{1}\$ to \$\beta_{p-1}\$ are the weights/coefficients mapped to your features (each beta is one value) 
+- \$x_{1}\$ to \$x_{p-1}\$ are each individual feature vector (vector (many values) for adiposity, etc.)
+- \$\beta_{0}\$ is an intercept.
 
-$\beta^TX$ are the weights and the features condensed into matrix form. You can do some cool stuff with this property. I will show that later in later equations.
+\$\beta^TX\$ are the weights and the features condensed into matrix form. You can do some cool stuff with this property. I will show that later in later equations.
 
 So maybe you are starting to understand how we map outputs to features. It's all in the Betas! Those are the weights or coefficients "attached" to your numerical features. The logistic equation is trying to adjust those weights in the best possible based on all the data for a particular feature to give the best output for Y.
 
