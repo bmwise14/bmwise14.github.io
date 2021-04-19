@@ -17,9 +17,16 @@ If you are first understanding logistic regression, you have to know one thing. 
 In data science, we typically give what we are trying to predict a name. We will call them labels, or \(Y\). We have to codify the labels to be some number. 
 Again, we typically give our \(Y\) the values 1 or 0, 1 corresponding to one label, and 0 for the other label.
 
-$$\begin{eqnarray}Y = \left \{\begin{array}\\ 1 \\ 0 \end{array}\right. \end{eqnarray}$$
+\begin{equation*}
+    \Y = \left \
+        {\begin{array}\\ 
+            1 \\ 
+            0 
+        \end{array}
+        \right. 
+\end{equation*}
 
-So we have a bunch of labels (\(Y\)). How do we predict one of those classes? Well, you gotta have some data that represents each class. We typically call these features, or \(X\).
+So we have a bunch of labels $Y$. How do we predict one of those classes? Well, you gotta have some data that represents each class. We typically call these features, or $X$.
 
 Features represent the labels. For classifying cats and dogs, we may have one feature called color with many different color values (red, yellow, orange). 
 We might have another feature called length, with varying lengths of the animal (20 inches, 50 inches, etc.). 
@@ -28,7 +35,7 @@ As you gather more features describing cats and dogs, you are developing a matri
 Let's move to another more complicated example. I have a dataset downloaded from kaggle called the South Africa Coronary Heart Disease Dataset {https://www.kaggle.com/emilianito/saheart},or SAHeart. 
 We are going to be predicting whether or not a sample of males from South Africa have coronary heart disease based on a host of measured features, including systolic blood pressure, tobacco use, LDL cholesterol, adiposity, family history, type-A behavior, obesity, alcohol use, and age.
 
-Each individual feature can be denoted as \$x_i\$. For example, \(x_1\) represent the data in the "adiposity" feature in the SA Heart Dataset. 
+Each individual feature can be denoted as $x_i$. For example, \(x_1\) represent the data in the "adiposity" feature in the SA Heart Dataset. 
 
 We have about 462 rows, which means we have measured 462 patients. With this data, you could "train" an algorithm to predict if the person has coronary heart disease, 1 for "yes they have it", and 0 for "no they do not have it."
 
@@ -62,7 +69,7 @@ $$logit(p) = \log{\left(\frac{p} {1-p}\right)} = log(p) - log(1-p) = -log\left(\
 $$-log\left(\frac{1} {p} - 1\right) = \beta_{0} + \beta_{1}x_{1} + \dots + \beta_{p-1}x_{p-1} = \beta^TX$$
 
 , where 
-- \[p\] is the probability that \[y=1\],
+- <img src="https://render.githubusercontent.com/render/math?math=p"> is the probability that $y=1$,
 - \$\beta_{1}\$ to \$\beta_{p-1}\$ are the weights/coefficients mapped to your features (each beta is one value) 
 - \$x_{1}\$ to \$x_{p-1}\$ are each individual feature vector (vector (many values) for adiposity, etc.)
 - \$\beta_{0}\$ is an intercept.
@@ -98,7 +105,8 @@ def logistic_regression_predict(W, X):
         W (numpy array): your weights array - shape (10,) - 10 features
         X (numpy array): your feature values matrix - shape (N, 10) - 10 features, N data
     Returns:
-        probabilities (numpy array): probability matrix representing the probability a data point will be in class 1
+        probabilities (numpy array): probability matrix representing the probability a 
+                                     data point will be in class 1
     '''
     probabilities = np.array(1.0 / (1.0 + np.exp(np.dot(X,-W))))
     return probabilities
@@ -106,9 +114,12 @@ def logistic_regression_predict(W, X):
 
 Let's do an example with the AS dataset. I am going to just select some random weights. As you can see there is 1 weight/coefficient for each feature.
 
-{% highlight python %}
->>> weights = np.array([0.0003, 0.433, -0.00045]) # 3 Initialized Weights
->>> features = np.array(X[['sbp', 'tobacco', 'ldl']])[:4] # We are looking at 4 data points and 3 Features
+{% highlight python %}]
+# 3 Initialized Weights
+>>> weights = np.array([0.0003, 0.433, -0.00045])
+# We are looking at 4 data points and 3 Features
+>>> features = np.array(X[['sbp', 'tobacco', 'ldl']])[:4] 
+# predict p based on weights and feature values
 >>> logistic_regression_predict(weights, features)
 array([0.99473514, 0.51138441, 0.51711181, 0.96427809])
 {% endhighlight %}
