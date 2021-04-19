@@ -13,23 +13,29 @@ I am going to start from ground zero and build up with some examples in python a
 
 ## The Base - What do we use Logistic Regression for?
 
-If you are first understanding logistic regression, you have to know one thing. You have to predict one of two classes, like cats vs dogs, fire vs. ice, etc. In data science, we typically give what we are trying to predict a name. We will call them labels, or Y. We have to codify the labels to be some number. Again, we typically give our Y the values 1 or 0, 1 corresponding to one label, and 0 for the other label.
+If you are first understanding logistic regression, you have to know one thing. You have to predict one of two classes, like cats vs dogs, fire vs. ice, etc. 
+In data science, we typically give what we are trying to predict a name. We will call them labels, or \(Y\). We have to codify the labels to be some number. 
+Again, we typically give our \(Y\) the values 1 or 0, 1 corresponding to one label, and 0 for the other label.
 
 $$\begin{eqnarray}Y = \left \{\begin{array}\\ 1 \\ 0 \end{array}\right. \end{eqnarray}$$
 
-So we have a bunch of labels (Y). How do we predict one of those classes? Well, you gotta have some data that represents each class. We typically call these features, or X.
+So we have a bunch of labels (\(Y\)). How do we predict one of those classes? Well, you gotta have some data that represents each class. We typically call these features, or \(X\).
 
-Features represent the labels. For classifying cats and dogs, we may have one feature called color with many different color values (red, yellow, orange). We might have another feature called length, with varying lengths of the animal (20 inches, 50 inches, etc.). As you gather more features describing cats and dogs, you are developing a matrix that will have a bunch of columns (features) and rows (the values for one animal). 
+Features represent the labels. For classifying cats and dogs, we may have one feature called color with many different color values (red, yellow, orange). 
+We might have another feature called length, with varying lengths of the animal (20 inches, 50 inches, etc.). 
+As you gather more features describing cats and dogs, you are developing a matrix that will have a bunch of columns (features) and rows (the values for one animal). 
 
-Let's move to another more complicated example. I have a dataset downloaded from kaggle called the South Africa Coronary Heart Disease Dataset {https://www.kaggle.com/emilianito/saheart},or SAHeart. We are going to be predicting whether or not a sample of males from South Africa have coronary heart disease based on a host of measured features, including systolic blood pressure, tobacco use, LDL cholesterol, adiposity, family history, type-A behavior, obesity, alcohol use, and age.
+Let's move to another more complicated example. I have a dataset downloaded from kaggle called the South Africa Coronary Heart Disease Dataset {https://www.kaggle.com/emilianito/saheart},or SAHeart. 
+We are going to be predicting whether or not a sample of males from South Africa have coronary heart disease based on a host of measured features, including systolic blood pressure, tobacco use, LDL cholesterol, adiposity, family history, type-A behavior, obesity, alcohol use, and age.
 
-Each individual feature can be denoted as $x_i$. For example, $x_1$ represent the data in the "adiposity" feature in the SA Heart Dataset. 
+Each individual feature can be denoted as \(x_i\). For example, \(x_1\) represent the data in the "adiposity" feature in the SA Heart Dataset. 
 
 We have about 462 rows, which means we have measured 462 patients. With this data, you could "train" an algorithm to predict if the person has coronary heart disease, 1 for "yes they have it", and 0 for "no they do not have it."
 
 ## How do we predict a class?
 
-So you're probably wondering how do we get from a set of features, X, to a set of predictions, y? We have to do a little bit of math. We need some equation to be able to take the features X and get an output of 1 or 0. This equation will basically be "fitting" the numerical features to the numerical outcome (1 or 0). That means when a new set of features comes around, we can just use the fit equation to predict 1 or 0. Let's take a look at how this all works.
+So you're probably wondering how do we get from a set of features, \(X\), to a set of predictions, \(Y\)? We have to do a little bit of math. We need some equation to be able to take the features \(X\) and get an output of 1 or 0. This equation will basically be "fitting" the numerical features to the numerical outcome (1 or 0). 
+That means when a new set of features comes around, we can just use the fit equation to predict 1 or 0. Let's take a look at how this all works.
 
 We need to define some notation first. Let's define the probability that a given set of features is 1.
 
@@ -54,11 +60,13 @@ You can map the total relationship between the log odds and your features below.
 
 $$logit(p) = \log{\left(\frac{p} {1-p}\right)} = log(p) - log(1-p) = -log\left(\frac{1} {p} - 1\right) = \beta_{0} + \beta_{1}x_{1} + \dots + \beta_{p-1}x_{p-1} = \beta^TX$$
 
+$$-log\left(\frac{1} {p} - 1\right) = \beta_{0} + \beta_{1}x_{1} + \dots + \beta_{p-1}x_{p-1} = \beta^TX$$
+
 , where 
-- p is the probability that $y=1$,
-- $\beta_{1}$ to $\beta_{p-1}$ are the weights/coefficients mapped to your features (each beta is one value) 
-- $x_{1}$ to $x_{p-1}$ are each individual feature vector (vector (many values) for adiposity, etc.)
-- $\beta_{0}$ is an intercept.
+- \(p\) is the probability that \(y=1\),
+- \(\beta_{1}\) to \(\beta_{p-1}\) are the weights/coefficients mapped to your features (each beta is one value) 
+- \(x_{1}\) to \(x_{p-1}\) are each individual feature vector (vector (many values) for adiposity, etc.)
+- \(\beta_{0}\) is an intercept.
 
 $\beta^TX$ are the weights and the features condensed into matrix form. You can do some cool stuff with this property. I will show that later in later equations.
 
@@ -67,12 +75,15 @@ So maybe you are starting to understand how we map outputs to features. It's all
 Now that we know this relationship between the features and the probabilities, how do we actually get the probability that y=1? We have to take that logit equation and exponentiate it. This will give us everything we need to make a prediction!
 
 Step 1: Exponentiate the log odds to get the odds, but now we have the features exponentiated as well.
+
 $$\frac{p} {1-p} = e^{ \beta_{0} + \beta_{1}x_{1} + \dots + \beta_{p-1}x_{p-1} }$$
 
 Step 2: Solve for p
+
 $$p = \frac{ e^{ \beta_{0} + \beta_{1}x_{1} + \dots + \beta_{p-1}x_{p-1}  } } {1 + e^{ \beta_{0} + \beta_{1}x_{1} + \dots + \beta_{p-1}x_{p-1}  }} = \frac{ e^{\beta^TX} } {1 + e^{\beta^TX}}$$
 
 Step 3: Simplify
+
 $$p = \frac{ 1 } {1 + e^{-\beta_{0} + \beta_{1}x_{1} + \dots + \beta_{p-1}x_{p-1}  }} = \frac{ 1 } {1 + e^{-\beta^TX }}$$
 
 
