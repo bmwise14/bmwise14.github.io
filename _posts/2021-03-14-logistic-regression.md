@@ -68,9 +68,9 @@ $$logit(p) = \log{\left(\frac{p} {1-p}\right)} = log(p) - log(1-p) = -log\left(\
 $$-log\left(\frac{1} {p} - 1\right) = \beta_{0} + \beta_{1}x_{1} + \dots + \beta_{p-1}x_{p-1} = \beta^TX$$
 
 , where 
-- <img src="https://render.githubusercontent.com/render/math?math=%5Clarge+%5Ctextstyle+p" alt="p"> is the probability that ![y=1](https://render.githubusercontent.com/render/math?math=%5Ctextstyle+y%3D1),
+- <!-- $p$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=p"> is the probability that <!-- $y=1$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=y%3D1">,
 - ![\beta_{1}](https://render.githubusercontent.com/render/math?math=%5Ctextstyle+%5Cbeta_%7B1%7D) to ![\beta_{p-1}](https://render.githubusercontent.com/render/math?math=%5Ctextstyle+%5Cbeta_%7Bp-1%7D) are the weights/coefficients mapped to your features (each beta is one value) 
-- \$x_{1}\$ to \$x_{p-1}\$ are each individual feature vector (vector (many values) for adiposity, etc.)
+- <!-- $x_{1}$ --> <img style="transform: translateY(0.1em); background: white;" src="https://render.githubusercontent.com/render/math?math=x_%7B1%7D"> to $x_{p-1}$ are each individual feature vector (vector (many values) for adiposity, etc.)
 - \$\beta_{0}\$ is an intercept.
 
 \$\beta^TX\$ are the weights and the features condensed into matrix form. You can do some cool stuff with this property. I will show that later in later equations.
