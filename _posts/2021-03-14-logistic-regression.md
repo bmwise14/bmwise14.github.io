@@ -62,7 +62,7 @@ $$logit(p) = \log{\left(\frac{p} {1-p}\right)} = log(p) - log(1-p) = -log\left(\
 $$-log\left(\frac{1} {p} - 1\right) = \beta_{0} + \beta_{1}x_{1} + \dots + \beta_{p-1}x_{p-1} = \beta^TX$$
 
 , where 
-- \$p\$ is the probability that \$y=1\$,
+- \[p\] is the probability that \[y=1\],
 - \$\beta_{1}\$ to \$\beta_{p-1}\$ are the weights/coefficients mapped to your features (each beta is one value) 
 - \$x_{1}\$ to \$x_{p-1}\$ are each individual feature vector (vector (many values) for adiposity, etc.)
 - \$\beta_{0}\$ is an intercept.
@@ -107,8 +107,10 @@ def logistic_regression_predict(W, X):
 Let's do an example with the AS dataset. I am going to just select some random weights. As you can see there is 1 weight/coefficient for each feature.
 
 {% highlight python %}
-weights = np.array([0.0003, 0.433, -0.00045]) # Initialized Weights
-features = np.array(X[['sbp', 'tobacco', 'ldl']])[:4] # Features
+>>> weights = np.array([0.0003, 0.433, -0.00045]) # 3 Initialized Weights
+>>> features = np.array(X[['sbp', 'tobacco', 'ldl']])[:4] # We are looking at 4 data points and 3 Features
+>>> logistic_regression_predict(weights, features)
+array([0.99473514, 0.51138441, 0.51711181, 0.96427809])
 {% endhighlight %}
 
 That's awesome! We can use features and beta values to calculate the probability of a class. But how do we get the best weights that fit the data in the most accurate way?
