@@ -17,6 +17,8 @@ If you are first understanding logistic regression, you have to know one thing. 
 In data science, we typically give what we are trying to predict a name. We will call them labels, or \(Y\). We have to codify the labels to be some number. 
 Again, we typically give our \(Y\) the values 1 or 0, 1 corresponding to one label, and 0 for the other label.
 
+<img src="https://render.githubusercontent.com/render/math?math=%24%24%5Cbegin%7Beqnarray%7D%0AY%20%3D%20%5Cleft%5C%7B%0A%20%20%20%20%5Cbegin%7Barray%7D%5C%5C%0A%20%20%20%20%20%20%20%201%20%5C%5C%0A%20%20%20%20%20%20%20%200%0A%20%20%20%20%5Cend%7Barray%7D%0A%5Cright.%20%20%20%0A%5Cend%7Beqnarray%7D%24%24">
+
 \begin{equation*}
     \Y = \left \
         {\begin{array}\\ 
@@ -69,8 +71,8 @@ $$logit(p) = \log{\left(\frac{p} {1-p}\right)} = log(p) - log(1-p) = -log\left(\
 $$-log\left(\frac{1} {p} - 1\right) = \beta_{0} + \beta_{1}x_{1} + \dots + \beta_{p-1}x_{p-1} = \beta^TX$$
 
 , where 
-- <img src="https://render.githubusercontent.com/render/math?math=p"> is the probability that $y=1$,
-- \$\beta_{1}\$ to \$\beta_{p-1}\$ are the weights/coefficients mapped to your features (each beta is one value) 
+- <img src="https://render.githubusercontent.com/render/math?math=p"> is the probability that <img src="https://render.githubusercontent.com/render/math?math=y=1">,
+- <img src="https://render.githubusercontent.com/render/math?math=\beta_{1}"> to <img src="https://render.githubusercontent.com/render/math?math=beta_{p-1}"> are the weights/coefficients mapped to your features (each beta is one value) 
 - \$x_{1}\$ to \$x_{p-1}\$ are each individual feature vector (vector (many values) for adiposity, etc.)
 - \$\beta_{0}\$ is an intercept.
 
