@@ -17,13 +17,13 @@ If you are first understanding logistic regression, you have to know one thing. 
 In data science, we typically give what we are trying to predict a name. We will call them labels, or \(Y\). We have to codify the labels to be some number. 
 Again, we typically give our \(Y\) the values 1 or 0, 1 corresponding to one label, and 0 for the other label.
 
-<img src=
+<div style="text-align:center"><img src=
 "https://render.githubusercontent.com/render/math?math=%5Cdisplaystyle+Y+%3D%0A%5Cbegin%7Bcases%7D%0A1+%5C%5C%0A0%0A%5Cend%7Bcases%7D" 
 alt="Y =
 \begin{cases}
 1 \\
 0
-\end{cases}">
+\end{cases}"></div>
 
 ![Y =
 \begin{cases}
@@ -74,7 +74,7 @@ $$logit(p) = \log{\left(\frac{p} {1-p}\right)} = log(p) - log(1-p) = -log\left(\
 $$-log\left(\frac{1} {p} - 1\right) = \beta_{0} + \beta_{1}x_{1} + \dots + \beta_{p-1}x_{p-1} = \beta^TX$$
 
 , where 
-- ![p](https://render.githubusercontent.com/render/math?math=%5Clarge+%5Ctextstyle+p) is the probability that ![y=1](https://render.githubusercontent.com/render/math?math=%5Ctextstyle+y%3D1),
+- <div id="image" style="display:inline;"><img src="https://render.githubusercontent.com/render/math?math=%5Clarge+%5Ctextstyle+p" alt="p"></div> is the probability that ![y=1](https://render.githubusercontent.com/render/math?math=%5Ctextstyle+y%3D1),
 - ![\beta_{1}](https://render.githubusercontent.com/render/math?math=%5Ctextstyle+%5Cbeta_%7B1%7D) to ![\beta_{p-1}](https://render.githubusercontent.com/render/math?math=%5Ctextstyle+%5Cbeta_%7Bp-1%7D) are the weights/coefficients mapped to your features (each beta is one value) 
 - \$x_{1}\$ to \$x_{p-1}\$ are each individual feature vector (vector (many values) for adiposity, etc.)
 - \$\beta_{0}\$ is an intercept.
@@ -119,7 +119,7 @@ def logistic_regression_predict(W, X):
 
 Let's do an example with the AS dataset. I am going to just select some random weights. As you can see there is 1 weight/coefficient for each feature.
 
-{% highlight python %}]
+{% highlight python %}
 # 3 Initialized Weights
 >>> weights = np.array([0.0003, 0.433, -0.00045])
 # We are looking at 4 data points and 3 Features
