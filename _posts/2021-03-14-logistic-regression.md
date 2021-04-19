@@ -15,14 +15,7 @@ I am going to start from ground zero and build up with some examples in python a
 
 If you are first understanding logistic regression, you have to know one thing. You have to predict one of two classes, like cats vs dogs, fire vs. ice, etc. In data science, we typically give what we are trying to predict a name. We will call them labels, or Y. We have to codify the labels to be some number. Again, we typically give our Y the values 1 or 0, 1 corresponding to one label, and 0 for the other label.
 
-$$\begin{equation}
-Y = \left\{
-    \begin{array}\\
-        1 \\
-        0
-    \end{array}
-\right.   
-\end{equation}$$
+$$\begin{eqnarray}Y = \left \{\begin{array}\\ 1 \\ 0 \end{array}\right. \end{eqnarray}$$
 
 So we have a bunch of labels (Y). How do we predict one of those classes? Well, you gotta have some data that represents each class. We typically call these features, or X.
 
