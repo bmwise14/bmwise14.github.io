@@ -31,7 +31,7 @@ Features represent the labels. For classifying cats and dogs, we may have one fe
 We might have another feature called length, with varying lengths of the animal (20 inches, 50 inches, etc.). 
 As you gather more features describing cats and dogs, you are developing a matrix that will have a bunch of columns (features) and rows (the values for one animal). 
 
-Let's move to another more complicated example. I have a dataset downloaded from kaggle called the South Africa Coronary Heart Disease Dataset {https://www.kaggle.com/emilianito/saheart},or SAHeart. We are going to be predicting whether or not a sample of males from South Africa have coronary heart disease based on a host of measured features, including systolic blood pressure, tobacco use, LDL cholesterol, adiposity, family history, type-A behavior, obesity, alcohol use, and age.
+Let's move to another more complicated example. I have a dataset downloaded from kaggle called the [South Africa Coronary Heart Disease Dataset](https://www.kaggle.com/emilianito/saheart),or SAHeart. We are going to be predicting whether or not a sample of males from South Africa have coronary heart disease based on a host of measured features, including systolic blood pressure, tobacco use, LDL cholesterol, adiposity, family history, type-A behavior, obesity, alcohol use, and age.
 
 Each individual feature can be denoted as $$x_i$$. For example, $$x_1$$ represent the data in the "adiposity" feature in the SA Heart Dataset. 
 
@@ -136,3 +136,10 @@ This is what all the model training is. Let's get into it.
 Maximum Likelihood Estimation is your objective function. It is a method of estimating the parameters of a probability distribution by maximizing a likelihood function, so that under the assumed statistical model the observed data is most probable. What are the actual functions? You can maximize the likelihood of your data with an equation called log-likelihood. The inverse of maximimizing the likelihood of your data is to minimize the loss on your output. This is done using a **cost function**. There are a number of these cost functions in machine learning. In linear regression our cost function is mean squared error, and we use a an iterative algorithm to minimize the sum of the squared residuals.
 
 However, with logistic regression, things are a little different. We must use the **Cross-Entropy Loss function** or use the **Log Loss function (Negative log-likelihood loss)**. If you are using cross-entropy loss, you are maximizing the log-likelihood, but minimizing the binary-cross entropy. If you use negative log-likelihood function, you are minimizing the loss and performing maximium likelihood estimation. Log Loss is typically applied in the case of binary classification problems, whereas Cross-Entropy loss can be applied to multi-class classification.
+
+
+$$ Logloss(y, p) = -((y) log(p) + (1-y)log(1-p)) $$
+
+$$ Cost = \frac {1} {m} \sum_{i=1}^{m} -((y) log(p) + (1-y)log(1-p)) $$
+
+$$ Cost = \frac {1} {m} \sum_{i=1}^{m} logloss(y, p) $$
