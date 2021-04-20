@@ -31,7 +31,7 @@ Features represent the labels. For classifying cats and dogs, we may have one fe
 We might have another feature called length, with varying lengths of the animal (20 inches, 50 inches, etc.). 
 As you gather more features describing cats and dogs, you are developing a matrix that will have a bunch of columns (features) and rows (the values for one animal). 
 
-Let's move to another more complicated example. I have a dataset downloaded from kaggle called the [South Africa Coronary Heart Disease Dataset](https://www.kaggle.com/emilianito/saheart),or SAHeart. We are going to be predicting whether or not a sample of males from South Africa have coronary heart disease based on a host of measured features, including systolic blood pressure, tobacco use, LDL cholesterol, adiposity, family history, type-A behavior, obesity, alcohol use, and age.
+Let's move to another more complicated example. I have a dataset downloaded from kaggle called the [South Africa Coronary Heart Disease Dataset](https://www.kaggle.com/emilianito/saheart) (SAHeart). We are going to be predicting whether or not a sample of males from South Africa have coronary heart disease based on a host of measured features, including systolic blood pressure, tobacco use, LDL cholesterol, adiposity, family history, type-A behavior, obesity, alcohol use, and age.
 
 Each individual feature can be denoted as $$x_i$$. For example, $$x_1$$ represent the data in the "adiposity" feature in the SA Heart Dataset. 
 
@@ -91,8 +91,9 @@ Step 3: Simplify
 
 $$p = \frac{ 1 } {1 + e^{-\beta_{0} + \beta_{1}x_{1} + \dots + \beta_{p-1}x_{p-1}  }} = \frac{ 1 } {1 + e^{-\beta^TX }}$$
 
-This is it! If you know the Betas and you have your feature values, all you have to do is plug and chug to get a prediction for the probability that $$y=1$$ ($$p$$). 
-Let's see what this looks like in python code. This final equation is called the sigmoid function, where the matrix multiplication of your Betas and your features $$X$$ is typically "$$z$$" in a lot of things you will read online.
+That's it! If you know the Betas and you have your feature values, all you have to do is plug and chug to get a prediction for the probability that $$y=1$$ ($$p$$). This final equation is called the **sigmoid function**, where the matrix multiplication of your Betas and your features $$X$$ is typically "$$z$$" in a lot of things you will read online. This will output 1 probability value pertaining to $$p$$. If you want to output 2 probabilities, one pertaining to $$p$$ and another pertaining to $$1-p$$, you would make predictions with what is called a [**softmax function**](https://en.wikipedia.org/wiki/Softmax_function). Softmax is typically used when predicting more than 2 classes, so we are just going to look at the sigmoid.
+
+Let's see what this looks like in python code. 
 
 {% highlight python %}
 def logistic_regression_predict(W, X):
@@ -123,23 +124,91 @@ array([0.99473514, 0.51138441, 0.51711181, 0.96427809])
 {% endhighlight %}
 
 That's awesome! We can use features and beta values to calculate the probability of a class. But how do we get the best weights that fit the data in the most accurate way?
-We will have to do some optimization.
+We will have to find a way of evaluating those weights, and then optimize those weights
 
-## How do we get those coefficients to make an accurate prediction?
+## How do we evaluate our weights/parameters?
 
-How do we get the best weights that fit the data in the most accurate way? We have to do some optimization or maximum likelihood estimation!
+How do we get the best weights that fit the data in the most accurate way? We have to do what is called in the literature as maximum likelihood estimation!
 
-What the heck is that? In the most simple terms, you need to find the results on your data that best minimize the error in your predictions from the actual class.
+How do you do all this? In the most simple terms, you need to find the points in your paramater space (the weights) that best minimize the error in your predictions from the actuals.
 This must be done by just picking weights and seeing what happens. Then you update them and repeat until you get the best fit. When you get the best weights you can, you stick with them. 
-This is what all the model training is. Let's get into it.
+This is what all the model training is. Let's get into it more technically. 
 
-Maximum Likelihood Estimation is your objective function. It is a method of estimating the parameters of a probability distribution by maximizing a likelihood function, so that under the assumed statistical model the observed data is most probable. What are the actual functions? You can maximize the likelihood of your data with an equation called log-likelihood. The inverse of maximimizing the likelihood of your data is to minimize the loss on your output. This is done using a **cost function**. There are a number of these cost functions in machine learning. In linear regression our cost function is mean squared error, and we use a an iterative algorithm to minimize the sum of the squared residuals.
+Maximum Likelihood Estimation in mathematical terms is a "[method of estimating the parameters of a probability distribution by maximizing a likelihood function, so that under the assumed statistical model the observed data is most probable](https://en.wikipedia.org/wiki/Maximum_likelihood_estimation#:~:text=In%20statistics%2C%20maximum%20likelihood%20estimation,observed%20data%20is%20most%20probable.)". What is the likelihood function you maximize in logistic regression? There are actually quite a few ways to do the same thing. I will go into all 3 and say which one we will use for this example.
 
-However, with logistic regression, things are a little different. We must use the **Cross-Entropy Loss function** or use the **Log Loss function (Negative log-likelihood loss)**. If you are using cross-entropy loss, you are maximizing the log-likelihood, but minimizing the binary-cross entropy. If you use negative log-likelihood function, you are minimizing the loss and performing maximium likelihood estimation. Log Loss is typically applied in the case of binary classification problems, whereas Cross-Entropy loss can be applied to multi-class classification.
+Option 1:
+You can maximize the likelihood of your data with an equation called [log-likelihood](https://en.wikipedia.org/wiki/Likelihood_function#:~:text=Log%2Dlikelihood%20function%20is%20a,to%20maximizing%20the%20log%2Dlikelihood.), which is a log transform of the likelihood function.
+
+Option 2:
+You can take the inverse of the log-likelihood function. This is called a **loss function** and is specifically termed **binary cross entropy loss** or **log loss**. You will see both used interchangeably. The output of the loss function is a loss value. It tells you how far off your predicted probability is from the actual value. Your loss increases the further away your prediction (number between 1 and 0) is from the actual value (1 or 0).
+
+Option 3:
+You can do calculate categorical cross-entropy loss. This is usually done when there are multiple classes, and has close ties with the softmax function. I found this [blog](https://gombru.github.io/2018/05/23/cross_entropy_loss/) extremely useful in parsing these losses apart.
+
+As you might have guessed, we are going with option 2, the log loss function. We will be evaluating weights (parameters) by looking at the output of the difference between actual and predicted with log loss. The goal of this log loss fucntion is each time we make a change to our weights (parameters), we want to see that the value from the log loss function goes down/gets minimized. When we have reached best minimization (convergence) on the loss, then we stick with those weights. Here is our log loss function:
 
 
 $$ Logloss(y, p) = -((y) log(p) + (1-y)log(1-p)) $$
 
+However, this log loss is not enough. This is a calculation on one prediction. Evaluating each prediction and then changing the weights each time will get tedious, especially as we are trianing on larger datasets. We want to look at our loss over many predictions, preferrably in batches. That is why we can also define a **cost function**. Here it is below. It is just the average of your losses on that batch of data.
+
 $$ Cost = \frac {1} {m} \sum_{i=1}^{m} -((y) log(p) + (1-y)log(1-p)) $$
 
 $$ Cost = \frac {1} {m} \sum_{i=1}^{m} logloss(y, p) $$
+
+So if you have to remember anything - loss function is for one data point, cost function is for many data points.
+
+Let's see how we can do evaluation with these functions in python!
+
+{% highlight python %}
+>>> test_y = 1 # our label
+>>> p = 0.8    # our predicted probability
+>>> loss = -( (test_y*np.log(p)) + ((1-test_y)*np.log(1-p)) )
+>>> print(loss)
+0.2231435513142097
+{% endhighlight %}
+
+As you can see above, when we plug the label and the probability in our loss function, we get a loss value. Let me show you something interesting.
+
+{% highlight python %}
+>>> test_y = 1 # our label
+>>> p = 0.8    # our predicted probability
+>>> loss = -( (test_y*np.log(p)) )
+>>> print(loss)
+0.2231435513142097
+{% endhighlight %}
+
+Same value! Why is that? If your class is y = 1, then the second side of the equation zeros out. If your class is y = 0, then the first side zeros out. Let's show when y is 0, but the predicted probability is a little off.
+
+{% highlight python %}
+>>> test_y = 0
+>>> p = 0.8
+>>> loss1 = -( (test_y*np.log(p)) + ((1-test_y)*np.log(1-p)) )
+>>> print(loss1)
+1.6094379124341005
+
+>>> loss2 = -( ((1-test_y)*np.log(1-p)) )
+>>> print(loss2)
+1.6094379124341005
+{% endhighlight %}
+
+Did you notice that the output of your loss function increased as a result of a worse prediction? You have a higher penalty on classes that are misidentified. This becomes important during optimization steps, which we will discuss in the next section.
+
+Here are the loss function and cost functions here:
+
+{% highlight python %}
+def loss_fn(y, p):
+    '''
+    Definition: get the log loss or the log difference between the actual label (y) and what is prediction (p)
+    '''
+    return -( (y*np.log(p)) + ((1-y)*np.log(1-p)) )
+
+def cost_function(Y, P):
+    '''
+    Defintion: get the average log loss among all the training examples
+    '''
+    m = len(P)
+    return 1/m*np.sum(loss_fn(Y, P))
+{% endhighlight %}
+
+## How do we get the best weights/parameters with those loss functions? Optimization Algorithms!
