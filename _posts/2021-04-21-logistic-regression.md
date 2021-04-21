@@ -259,8 +259,8 @@ Now if we wanted to update more than one training example at a time, we add a li
 $$ gradient = \frac{\partial Cost}{\partial w_j} $$
 
 Now the new update is the following, which is what we will be implementing in python code.
-$$\theta^{t+1} = \theta^t - \eta \triangledown_\theta Cost$$
 
+$$\theta^{t+1} = \theta^t - \eta \triangledown_\theta Cost$$
 
 Let's take a look at the gradient descent algorithm in python.
 
