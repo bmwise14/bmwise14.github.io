@@ -1,6 +1,6 @@
 title: "Bradley Wise Machine Learning Blog"
 author: "Bradley Wise"
-description: "I will be writing some common machine learning algorithms in depth"
+description: "I will be writing about some common machine learning algorithms in depth"
 permalink: /:title/
 lang: "en"
 excerpt_separator: "\n\n\n"
@@ -18,12 +18,11 @@ mathjax: true
 
 navigation:                # accepts {file, title, url, icon, sidebaricon}
   - {file: "index.html"}
-  # - {file: "README.md"}
+  - {file: "README.md"}
 
 external:                  # shows a footer with social links - for available icons see fontawesome.com/icons
-  - {title: Mail, icon: envelope, url: "mailto:niklasbuschmann@users.noreply.github.com"}
-  - {title: Github, icon: github, url: "https://github.com/niklasbuschmann/contrast"}
-  - {title: Subscribe, icon: rss, url: "/feed.xml"}
+  - {title: Mail, icon: envelope, url: "mailto:bmwise14@gmail.com"}
+  - {title: LinkedIn, icon: linkedin, url: "https://www.linkedin.com/in/bradley-wise-b8962529/"}
 
 comments:
 #  disqus_shortname: ""    # see https://disqus.com/
