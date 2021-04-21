@@ -1,5 +1,5 @@
 ---
-title:  "Logistic Regression (with Math) for Dummies"
+title:  "The Complete(ish) Guide of Logistic Regression (with Math) for Dummies"
 mathjax: true
 layout: post
 categories: media
@@ -211,4 +211,163 @@ def cost_function(Y, P):
     return 1/m*np.sum(loss_fn(Y, P))
 {% endhighlight %}
 
+Now if you wanted to implement this evaluation on a few examples, you would do the following:
+
+{% highlight python %}
+>>> p = logistic_regression_predict(weights, features)
+>>> print(p)
+[0.99473514 0.51138441 0.51711181 0.96427809]
+
+>>> loss_fn(np.array(y).reshape(-1)[:4], p)
+array([0.00527877, 0.67063371, 0.72797015, 0.03637555])
+
+>>> cost_function(np.array(y).reshape(-1)[:4], p)
+0.36006454524061055
+
+{% endhighlight %}
+
 ## How do we get the best weights/parameters with those loss functions? Optimization Algorithms!
+
+Now that you know what **maximium likelihood estimation** is and how to evaluate your predictions based on your parameters (weights) using a cost function, we can finally start finding the best weights!
+
+Now we do the optimization using an optimization algorithm. Remember, the goal is to find a set of weights, W, which minimizes that cost function, averaged over all of our training examples.
+
+**NOTE:** That cost function for logistic regression is **convex**. What this means is that function has just one minimum loss and there is no local minima go get stuck in. In other words, we can find a sweet spot for all of our weights where the loss is at the minimum it can be. When this happens, we call it **convergence**.
+
+What optimizer should we use? There are a ton of them. Interestingly enough, the easiest one to use is gradient descent, which is the most common way to update the weights on a neural network! The scikit-learn Logistic Regression actually uses some optimizers similar to this - ‘newton-cg’, ‘lbfgs’, ‘liblinear’, ‘sag’, ‘saga’.  Those are other algorithms that are a little more refined optimizers than gradient descent with built in regularization, but the idea is still the same. 
+
+How does gradient descent work with respect to logistic regression? Gradient Descent tells us whether we should make the weights bigger or smaller (move to the left or right) to reach the minimum loss. More specifically, it tells us which direction for the weights to go by finding the gradient of the loss function and at the current point and moving in the opposite direction.  Let's see some definitions below:
+
+**Gradient** - a vector pointing in the direction of the greatest increase in a function. The gradient is a "multivariable" generalization of the slope of a line - If the slope is negative, we move our weight, $$w$$, in the opposite direction. In simple terms, the gradient is just a vector.
+
+**Learning rate** - the magnitude of the amount to move the weight is the value of the slope multiplied by the learning rate. A higher learning rate moves $$w$$ more on each iteration.
+
+We caclulate the gradient for that feature/variable, then update the new weight by subtracting our current weight from that gradient times the learning rate, $$\eta$$. If we were only updating one weight for one training example, it would look like this:
+
+$$gradient = \frac{d} {dw}f(x;w)$$
+
+$$w^{t+1} = w^t - \eta \frac{d} {dw}f(x;w)$$
+
+Now if we have multiple weights and a bias term but one training example we make the terms we are trying to reach \theta. Here is the equation for that:
+
+$$\theta^{t+1} = \theta^t - \eta \triangledown_\theta(logloss(y^i, p^i)))$$
+
+The the $$\triangledown_\theta$$ is the gradient. Again, the $$\eta$$ is the learning rate. 
+
+Now if we wanted to update more than one training example at a time, we add a little more flavor to our equation. It is now the average of the individual gradients. This will dramatically decrease training time:
+
+$$ gradient = \frac{\partial Cost}{\partial w_j} $$
+
+Now the new update is the following, which is what we will be implementing in python code.
+$$\theta^{t+1} = \theta^t - \eta \triangledown_\theta Cost$$
+
+
+Let's take a look at the gradient descent algorithm in python.
+
+{% highlight python %}
+def gradient_descent(features, labels, weights, learning_rate):
+    '''
+    Definition: batch gradient descent - compute the gradient over the whole set of training instances
+    '''
+    N = len(features)
+    predictions_before_gd = logistic_regression_predict(weights, features)
+    
+    ## compute the dot product of the feature values * (predictions-labels) - gets the slopes for each feature 
+    ## remember that the predictions is essentially the dot product of weights*features and returns p
+    gradient        = np.dot(features.T, predictions_before_gd - labels) 
+    updated_weights = weights - learning_rate*(gradient/N)
+
+    predictions_after_gd = logistic_regression_predict(updated_weights, features)
+    
+    return updated_weights, predictions_after_gd
+{% endhighlight %}
+
+## Putting it all together to train logistic regression
+
+That's great! We can make predictions. We can evaluate. We can update. Now we put all of these functions together to train our logistic regression model! We can set the number of iterations we want to go through in the training step. I will also implement an early stopping mechanism when the cost function stops changing very much after a certain number of iterations (convergence). Let's see what it looks like!
+
+
+{% highlight python %}
+def train(features, labels, weights, lr, iterations):
+    cost_history = []
+    convergence_number = 0
+
+    for i in range(iterations):
+        if convergence_number > 8:
+            break
+
+        # make predictions with gradient descent
+        weights, predictions = gradient_descent(features, labels, weights, lr)
+        # calculate cost
+        cost = cost_function(labels, predictions)
+        
+        # early stopping mechanism
+        if len(cost_history)>0:
+            if np.abs(cost_history[-1] - cost) < 0.1:
+                cost_history.append(cost)
+                convergence_number+=1
+            else:
+                convergence_number=0
+        cost_history.append(cost)
+
+        # Log Training Progress
+        if i % 1000 == 0:
+            print("iter: "+str(i) + " cost: "+str(cost))
+
+    return weights, cost_history
+
+def classify(predictions):
+    '''
+    input  - N element array of predictions between 0 and 1
+    output - N element array of 0s (False) and 1s (True)
+    '''
+    classifications = [] 
+    for prediction in predictions:
+        classifications.append(1 if prediction >= .5 else 0)
+    return classifications
+
+def accuracy(predicted_labels, actual_labels):
+    diff = predicted_labels - actual_labels
+    
+    ## count how many different labels there and divide by the total number of labels
+    return 1.0 - (float(np.count_nonzero(diff)) / len(actual_labels))
+{% endhighlight %}
+
+Let's implement on the SA Heart example!
+
+{% highlight python %}
+## Initialize the weights first
+>>> initialized_weights = np.zeros(shape=np.array(X).shape[1])
+
+## Train your algorithm
+>>> weights, cost_history = train(np.array(X), np.array(y).reshape(-1), initialized_weights, 0.001, 100000)
+
+## Get the final predictions
+>>> p = logistic_regression_predict(weights, np.array(X))
+{% endhighlight %}
+
+Now we want to get the accuracy on our model. There are other calculations we can do with recall, precision, F-score. These are more valuable. I can devote another blog to that. For now, let's just look at accuracy.
+
+{% highlight python %}
+>>> predicted_labels = classify(p)
+>>> accuracy(predicted_labels, np.array(y).reshape(-1))
+0.6731601731601732
+{% endhighlight %}
+
+That's not amazing, but it's not bad! At least we got it to work, right? Let's see how a base logistic regression works in an scikit-learn backed model. I am using the [quikml](https://pypi.org/project/quikml/) library I created for evaluating binary classifiers. We will use the liblinear solver from scikit-learn
+
+{% highlight python %}
+>>> from quikml.models import LR
+>>> lr = LR()
+>>> params={'solver' : 'liblinear'}
+>>> lr.train(np.array(X), np.array(y).ravel(), params=params)
+0.734
+{% endhighlight %}
+
+How about that? Our made from scratch gradient descent algorithm wasn't that far off from a basic implementation of a native logistic regression model which uses a liblinear optimizer.
+
+## Further Reading
+
+I encourage you to look up regularization techniques. These are important for picking out features. It utilizes the cost function to penalize features that are not predicting the probabilities very well. Lasso and Ridge regression are the most common techniques.
+
+If you want more information, please feel free to contact me at bmwise14@gmail.com!
