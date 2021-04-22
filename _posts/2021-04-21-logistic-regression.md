@@ -1,5 +1,5 @@
 ---
-title:  "The Complete(ish) Guide of Logistic Regression (with Math) for Dummies"
+title:  "The Complete(ish) Guide on Logistic Regression (with Math) for Dummies"
 mathjax: true
 layout: post
 categories: media
@@ -366,8 +366,6 @@ That's not amazing, but it's not bad! At least we got it to work, right? Let's s
 
 How about that? Our made from scratch gradient descent algorithm wasn't that far off from a basic implementation of a native logistic regression model which uses a liblinear optimizer.
 
-## Further Reading
+## Further Reading - TBC!
 
 I encourage you to look up regularization techniques. These are important for picking out features. It utilizes the cost function to penalize features that are not predicting the probabilities very well. Lasso and Ridge regression are the most common techniques.
-
-If you want more information, please feel free to contact me at bmwise14@gmail.com!
