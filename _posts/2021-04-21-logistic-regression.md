@@ -368,13 +368,13 @@ How about that? Our made from scratch gradient descent algorithm wasn't that far
 
 ## Further Reading - TBC!
 
-I encourage you to look up (regularization techniques)[https://stats.stackexchange.com/questions/228763/regularization-methods-for-logistic-regression/228785#228785]. These are important for picking out features. It utilizes the cost function to penalize features that are not predicting the probabilities very well. Lasso and Ridge regression are the most common techniques.
+I encourage you to look up [regularization techniques](https://stats.stackexchange.com/questions/228763/regularization-methods-for-logistic-regression/228785#228785). These are important for picking out features. It utilizes the cost function to penalize features that are not predicting the probabilities very well. Lasso and Ridge regression are the most common techniques.
 
 ### Sources:
-- https://ml-cheatsheet.readthedocs.io/en/latest/logistic_regression.html
-- https://stats.stackexchange.com/questions/198038/cross-entropy-or-log-likelihood-in-output-layer
-- https://ml-cheatsheet.readthedocs.io/en/latest/loss_functions.html#:~:text=Cross%2Dentropy%20loss%2C%20or%20log,So%20predicting%20a%20probability%20of%20.
-- https://stats.stackexchange.com/questions/228763/regularization-methods-for-logistic-regression/228785#228785
-- https://stats.stackexchange.com/questions/179026/objective-function-cost-function-loss-function-are-they-the-same-thing
-- https://web.stanford.edu/~jurafsky/slp3/5.pdf
-- https://datacadamia.com/data_mining/loss_function
+- [https://ml-cheatsheet.readthedocs.io/en/latest/logistic_regression.html](https://ml-cheatsheet.readthedocs.io/en/latest/logistic_regression.html)
+- [https://stats.stackexchange.com/questions/198038/cross-entropy-or-log-likelihood-in-output-layer](https://stats.stackexchange.com/questions/198038/cross-entropy-or-log-likelihood-in-output-layer)
+- [https://ml-cheatsheet.readthedocs.io/en/latest/loss_functions.html#:~:text=Cross%2Dentropy%20loss%2C%20or%20log,So%20predicting%20a%20probability%20of%20.](https://ml-cheatsheet.readthedocs.io/en/latest/loss_functions.html#:~:text=Cross%2Dentropy%20loss%2C%20or%20log,So%20predicting%20a%20probability%20of%20.)
+- [https://stats.stackexchange.com/questions/228763/regularization-methods-for-logistic-regression/228785#228785](https://stats.stackexchange.com/questions/228763/regularization-methods-for-logistic-regression/228785#228785)
+- [https://stats.stackexchange.com/questions/179026/objective-function-cost-function-loss-function-are-they-the-same-thing](https://stats.stackexchange.com/questions/179026/objective-function-cost-function-loss-function-are-they-the-same-thing)
+- [https://web.stanford.edu/~jurafsky/slp3/5.pdf](https://web.stanford.edu/~jurafsky/slp3/5.pdf)
+- [https://datacadamia.com/data_mining/loss_function](https://datacadamia.com/data_mining/loss_function)
